@@ -20,9 +20,28 @@ public:
 
 	/// Will also check keyboard input if requested
 	void display();
+
+	void update(float timePassedInMsec);
 private:
 	/// The movable item
 	ConsoleCellItem mCellItem;
+	
+	enum eDirection
+	{
+		DIRECTION_LEFT,
+		DIRECTION_RIGHT,
+		DIRECTION_UP,
+		DIRECTION_DOWN,
+	};
+
+	/// Current direction of cell item
+	eDirection mDirection = DIRECTION_LEFT;
+	   
+	/// The accumulated time since last move
+	float mAccumulatedTime = 0;
+
+	/// The item move timeout in milliseconds
+	float mMoveTimeout = 1000;
 
 	/// Whether use keyboard or not
 	bool mUseKeyboard = true;

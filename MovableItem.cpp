@@ -17,16 +17,16 @@ void MovableItem::displayItem()
 }
 
 void MovableItem::display()
-{			  							   
+{		
+}
+
+void MovableItem::update(float timePassedInMsec)
+{
 	// Check keyboard
 	int readData = getNonBlockingChar();
 
 	if (-1 != readData)
 	{
-		bool updatePreviousCell = false;
-
-		COORD movement{ 0, 0 };
-
 		constexpr int KEY_UP = 0x48;
 		constexpr int KEY_DOWN = 0x50;
 		constexpr int KEY_LEFT = 0x4b;
@@ -35,41 +35,55 @@ void MovableItem::display()
 		switch (readData)
 		{
 		case KEY_LEFT:
-			updatePreviousCell = true;
-			movement.X = -1;
+			mDirection = DIRECTION_LEFT;
 			break;
 		case KEY_RIGHT:
-			updatePreviousCell = true;
-			movement.X = 1;
+			mDirection = DIRECTION_RIGHT;
 			break;
 		case KEY_UP:
-			updatePreviousCell = true;
-			movement.Y = -1;
+			mDirection = DIRECTION_UP;
 			break;
 		case KEY_DOWN:
-			updatePreviousCell = true;
-			movement.Y = 1;
+			mDirection = DIRECTION_DOWN;
+			break;
+		}
+	}
+
+	mAccumulatedTime += timePassedInMsec;
+
+	if (mAccumulatedTime > mMoveTimeout)
+	{
+		mAccumulatedTime = 0;
+
+		COORD coord = mCellItem.getCellItemData().mPosition;
+
+		// Move item according to direction
+		switch (mDirection)
+		{
+		case MovableItem::DIRECTION_LEFT:
+			coord.X--;
+			break;
+		case MovableItem::DIRECTION_RIGHT:
+			coord.X++;
+			break;
+		case MovableItem::DIRECTION_UP:
+			coord.Y--;
+			break;
+		case MovableItem::DIRECTION_DOWN:
+			coord.Y++;
 			break;
 		}
 
-		if (true ==	updatePreviousCell)
-		{
-			const COORD coord = mCellItem.getCellItemData().mPosition;
-
-			// Check boundary
-			if (((coord.X + movement.X) < mBorder.right)
-				&&
-				((coord.X + movement.X) >= mBorder.left)
-				&&
-				((coord.Y + movement.Y) >= mBorder.top)
-				&&
-				((coord.Y + movement.Y) < mBorder.bottom))
-			{
-				movement.X += coord.X;
-				movement.Y += coord.Y;
-				
-				mCellItem.moveTo(movement);
-			}
+		// Check boundary
+		if ((coord.X < mBorder.right)
+			&&
+			(coord.X >= mBorder.left)
+			&&
+			(coord.Y >= mBorder.top)
+			&&
+			(coord.Y < mBorder.bottom))
+		{							 
+			mCellItem.moveTo(coord);
 		}
 	}
 }

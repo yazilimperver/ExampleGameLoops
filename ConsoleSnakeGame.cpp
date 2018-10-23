@@ -43,3 +43,8 @@ void ConsoleSnakeGame::displayWithLoopManagement(float tickTime)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 90, 0 });
 	cout << "FPS : " << mLoopManager.getLastFPS();
 }
+
+void ConsoleSnakeGame::update(float tickTime)
+{
+	snake.update(tickTime);
+}

@@ -78,11 +78,11 @@ void moveCursor(int x, int y)
 
 void displayCenteredText(const char *message, int consoleWidth, int ypos)
 {
-	int len = strlen(message);
+	size_t len = strlen(message);
 	if (len > 0)
 	{
-		int xpos = (consoleWidth - len) / 2;
-		moveCursor(xpos, ypos);
+		size_t xpos = (consoleWidth - len) / 2;
+		moveCursor(static_cast<int>(xpos), static_cast<int>(ypos));
 		printf(message);
 	}
 }  

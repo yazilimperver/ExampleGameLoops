@@ -23,6 +23,7 @@ public:
 	void display();
 
 	void displayWithLoopManagement(float tickTime);
+	void update(float tickTime);
 
 protected:
 
