@@ -35,6 +35,8 @@ void setColor(Color colorBack, Color colorFore)
 
 void clearConsole()
 {
+	setColor(Color::eColor_black, Color::eColor_black);
+
 	// Get the Win32 handle representing standard output.
 	// This generally only has to be done once, so we make it static.
 	static const HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -66,6 +68,11 @@ void clearConsole()
 
 	// Move the cursor back to the top left for the next sequence of writes
 	SetConsoleCursorPosition(hOut, topLeft);
+}
+
+void moveCursor(const COORD& pos)
+{
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
 void moveCursor(int x, int y)
@@ -124,6 +131,23 @@ void getConsoleInformation(int& width, int& height)
 
 	width = consoleInfo.X;
 	height = consoleInfo.Y;
+}
+
+void setWindowSize(int Width, int Height)
+{
+	_COORD coord;
+	coord.X = Width;
+	coord.Y = Height;
+
+	_SMALL_RECT Rect;
+	Rect.Top = 0;
+	Rect.Left = 0;
+	Rect.Bottom = Height - 1;
+	Rect.Right = Width - 1;
+
+	HANDLE Handle = GetStdHandle(STD_OUTPUT_HANDLE);      // Get Handle 
+	SetConsoleScreenBufferSize(Handle, coord);            // Set Buffer Size 
+	SetConsoleWindowInfo(Handle, TRUE, &Rect);            // Set Window Size 
 }
 
 void setConsoleInformation(short left, short top, short width, short height)

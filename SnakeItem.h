@@ -8,9 +8,93 @@
 #ifndef SNAKEITEM_H__
 #define SNAKEITEM_H__
 
+#include <ConsoleCellItem.h>
+#include <deque>
+
 class SnakeItem
 {
+public:
+	SnakeItem(ConsoleLevel& level, const ConsoleCellData& snakeHead);
 
+	/// Re-initialize this snake with given data
+	void initialize(const ConsoleCellData& snakeHead);
+	
+	/// Just display item
+	void displayItem();
+
+	/// Will also check keyboard input if requested
+	void display();
+
+	/// Update this snake
+	void update(float timePassedInMsec);
+
+	/// For upper management :)
+	bool isGameOver() const;
+
+	/// Direction information
+	enum eDirection
+	{
+		DIRECTION_LEFT,
+		DIRECTION_RIGHT,
+		DIRECTION_UP,
+		DIRECTION_DOWN,
+	};
+protected:
+	/// Check input
+	void checkInput();
+
+	/// Clear tail cell
+	void clearTail();
+
+	/// Perform movement
+	void performMove(eDirection direction);
+
+	/// Check for game over
+	bool isGameOver(const COORD& coordToCheck);
+
+	/// Is game over
+	bool mIsGameOver = false;
+
+	/// The snake head
+	ConsoleCellItem mSnakeHead;
+
+	/// Snake game logic items
+	/// We will hold snake body content as deque
+	/// separated from position data to prevent unnecessary updates
+	std::deque<int> mSnakeBodyContent;
+
+	/// Hold position of each content starting from head
+	std::deque<COORD> mSnakeBody;
+
+	/// The cell that should be used as start point for clear
+	/// This will be the tail of previous tick
+	COORD mCellToClear;	
+
+	/// Add body part snake
+	bool mAddBodyPart = false;	 
+	int mMovementLeftToAdd = 0;
+	int mNewBodyPartContent = 0;
+
+	/// The list of cell items
+	eDirection mCurrentDirection = DIRECTION_RIGHT;
+
+	/// Initiated direction (will be more useful for networking)
+	eDirection mInitiatedDirection = DIRECTION_RIGHT;
+
+	/// The accumulated time since last move
+	float mAccumulatedTime = 0;
+
+	/// The item move timeout in milliseconds
+	float mMoveTimeout = 500;
+
+	/// Ignore consecutive keyboard inputs till previous one is applied
+	bool mIgnoreInput = false;
+
+	/// Whether use keyboard or not
+	bool mUseKeyboard = true;
+
+	/// Border to prevent item get out scope
+	RECT mBorder{ 2, 3, 117, 28 };			
 };
 
 #endif // SNAKEITEM_H__

@@ -13,6 +13,7 @@ using namespace std;
 class LogoDisplayer
 {
 public:
+	static void DisplaySnakeLogo();
 	static void DisplayYazilimPerverLogo1();
 	static void DisplayYazilimPerverLogo2();
 	static void DisplayYazilimPerverLogoText1();

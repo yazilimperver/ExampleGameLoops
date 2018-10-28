@@ -1,38 +1,24 @@
 /**
- * \file    ConsoleUtil.h
- * \date    2018/10/22
+ * \file    SnakeGameScreen.h
+ * \date    2018/10/28
  * \author  yazilimperver
  * \brief   
  * Copyright © 2018, Check Bottom For Copyright Notice <yazilimpervergs@gmail.com>
  */
-#ifndef CONSOLEUTIL_H__
-#define CONSOLEUTIL_H__				  
+#ifndef SNAKEGAMESCREEN_H__
+#define SNAKEGAMESCREEN_H__
 
-#include <Color.h>
-#include <Windows.h>
+enum class SnakeGameScreen : int32_t
+{
+	eGAME_SCREEN_INITIAL,
+	eGAME_SCREEN_LOGO,
+	eGAME_SCREEN_SPLASH,
+	eGAME_SCREEN_MENU,
+	eGAME_SCREEN_GAME,
+	eGAME_SCREEN_GAMEOVER
+};
 
- // Some common key codes
-const int KEY_UP = 0x48;
-const int KEY_DOWN = 0x50;
-const int KEY_LEFT = 0x4b;
-const int KEY_RIGHT = 0x4d;
-const int KEY_ESCAPE = 0x1b;
-const int KEY_RETURN = 0x0d;
-
-extern void displayConsoleInfo();
-extern void setColor(Color colorBack, Color colorFore);
-extern void moveCursor(int x, int y);
-extern void moveCursor(const COORD& pos);
-extern void displayCenteredText(const char *message, int consoleWidth, int ypos);
-extern void cursorHide();
-extern void keyboardHandle();
-extern void clearConsole();
-extern void getConsoleInformation(int& width, int& height);
-extern void setWindowSize(int Width, int Height);
-extern void setConsoleInformation(short left, short top, short width, short height);
-// Returns -1 if no input is provided
-extern int  getNonBlockingChar();
-#endif // CONSOLEUTIL_H__
+#endif // SNAKEGAMESCREEN_H__
 
 /*
   Copyright (c) [2018] [Yazilimperver <yazilimpervergs@gmail.com>]

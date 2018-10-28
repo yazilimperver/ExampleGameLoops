@@ -41,7 +41,7 @@ private:
 	float mAccumulatedTime = 0;
 
 	/// The item move timeout in milliseconds
-	float mMoveTimeout = 1000;
+	float mMoveTimeout = 500;
 
 	/// Whether use keyboard or not
 	bool mUseKeyboard = true;

@@ -18,6 +18,7 @@ public:
 
 	/// Display the corresponding cell item in given position
 	void display();
+	void displayPrevious();
 
 	/// Move the cell item to given coordinate and return cell to previous state
 	/// In case of first move no previous state update will be performed
@@ -25,6 +26,8 @@ public:
 
 	/// Return the corresponding cell item data
 	ConsoleCellData& getCellItemData();
+
+	ConsoleCellItem &operator =(const ConsoleCellItem & newItem);
 protected:
 
 	void printCellData(const ConsoleCellData& cellData);

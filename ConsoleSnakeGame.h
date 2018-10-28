@@ -9,7 +9,8 @@
 #define CONSOLESNAKEGAME_H__
 
 #include <ConsoleLevel.h>
-#include <MovableItem.h>
+#include <SnakeGameScreen.h>
+#include <SnakeItem.h>
 
 class LoopManager;
 
@@ -20,18 +21,28 @@ public:
 
 	void initialize();
 
-	void display();
+	void display();	
 
 	void displayWithLoopManagement(float tickTime);
 	void update(float tickTime);
 
+	bool switchToGameScreen(SnakeGameScreen newScreen);
+
+	void displayGameOver();
 protected:
+	void displayLogo();
+	void displayGameLogo();
+	void prepareGameScreen();
+
+	/// Current game screen
+	SnakeGameScreen mCurrentGameScreen = SnakeGameScreen::eGAME_SCREEN_INITIAL;
 
 	/// Snake game board
 	ConsoleLevel level;
 
 	/// Snake head
-	MovableItem snake;
+	/// MovableItem snake;
+	SnakeItem snake;
 
 	/// Loopmanager that we associate our application
 	const LoopManager& mLoopManager;

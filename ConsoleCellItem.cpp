@@ -18,6 +18,20 @@ void ConsoleCellItem::display()
 	this->printCellData(mCellItemData);
 }
 
+void ConsoleCellItem::displayPrevious()
+{
+	this->printCellData(mPreviousCellItem);
+}
+
+ConsoleCellItem& ConsoleCellItem::operator =(const ConsoleCellItem & newItem)
+{
+	mPreviousCellItem = newItem.mPreviousCellItem;
+	mLevel = newItem.mLevel;
+	mCellItemData = newItem.mCellItemData;
+
+	return *this;
+}
+
 void ConsoleCellItem::moveTo(const COORD & newCoord)
 {										  
 	// Print back previous cell data						   
