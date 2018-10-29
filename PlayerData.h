@@ -1,58 +1,34 @@
 /**
- * \file    ConsoleSnakeGame.h
- * \date    2018/10/22
+ * \file    PlayerData.h
+ * \date    2018/10/29
  * \author  yazilimperver
  * \brief   
  * Copyright © 2018, Check Bottom For Copyright Notice <yazilimpervergs@gmail.com>
  */
-#ifndef CONSOLESNAKEGAME_H__
-#define CONSOLESNAKEGAME_H__
+#ifndef PLAYERDATA_H__
+#define PLAYERDATA_H__
 
-#include <ConsoleLevel.h>
-#include <SnakeGameScreen.h>
-#include <SnakeItem.h>
-#include <Player.h>
+#include <string>
+#include <Color.h>
 
-class LoopManager;
-
-class ConsoleSnakeGame
+struct PlayerData
 {
-public:
-	ConsoleSnakeGame(const LoopManager& loopManager);
+	/// Name of player
+	std::string mName = "Player_01";
 
-	void initialize();
+	/// Player unique id
+	int32_t mPlayerId = 1;
 
-	void display();	
+	/// Color
+	Color mPlayerColor = Color::eColor_cyan;
 
-	void displayWithLoopManagement(float tickTime);
-	void update(float tickTime);
+	/// Score
+	int32_t mScore = 0;
 
-	bool switchToGameScreen(SnakeGameScreen newScreen);
-
-	void displayGameOver();
-protected:
-	void displayLogo();
-	void displayGameLogo();
-	void prepareGameScreen();
-
-	/// Registered players
-	std::vector<std::shared_ptr<Player>> mRegisteredPlayers;
-
-	/// Current game screen
-	SnakeGameScreen mCurrentGameScreen = SnakeGameScreen::eGAME_SCREEN_INITIAL;
-
-	/// Snake game board
-	ConsoleLevel level;
-
-	/// Snake head
-	/// MovableItem snake;
-	SnakeItem snake;
-
-	/// Loopmanager that we associate our application
-	const LoopManager& mLoopManager;
+	/// TODO: NETWORK DATA (IP, CONNECTION STATUS, LAST RECEIVE DATA)
 };
 
-#endif // CONSOLESNAKEGAME_H__
+#endif // PLAYERDATA_H__
 
 /*
   Copyright (c) [2018] [Yazilimperver <yazilimpervergs@gmail.com>]

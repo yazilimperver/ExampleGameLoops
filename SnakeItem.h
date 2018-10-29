@@ -8,6 +8,7 @@
 #ifndef SNAKEITEM_H__
 #define SNAKEITEM_H__
 
+#include <Player.h>
 #include <ConsoleCellItem.h>
 #include <deque>
 
@@ -31,6 +32,9 @@ public:
 	/// For upper management :)
 	bool isGameOver() const;
 
+	/// Assign player to this snake
+	void assignPlayer(std::shared_ptr<Player> player);
+
 	/// Direction information
 	enum eDirection
 	{
@@ -52,11 +56,14 @@ protected:
 	/// Check for game over
 	bool isGameOver(const COORD& coordToCheck);
 
+	/// Initialization completed
+	bool mIsInitialized = true;
+
+	/// The player assigned to this snake item
+	std::shared_ptr<Player> mPlayer = nullptr;
+
 	/// Is game over
 	bool mIsGameOver = false;
-
-	/// The snake head
-	ConsoleCellItem mSnakeHead;
 
 	/// Snake game logic items
 	/// We will hold snake body content as deque

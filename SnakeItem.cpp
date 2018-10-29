@@ -6,7 +6,6 @@
 #include <ConsoleUtil.h>
 
 SnakeItem::SnakeItem(ConsoleLevel& level, const ConsoleCellData& initialCellInfo)
-	: mSnakeHead{ level, initialCellInfo }
 {
 	level.getLevelBorders(mBorder);
 
@@ -46,6 +45,11 @@ void SnakeItem::initialize(const ConsoleCellData& initialCellInfo)
 	mSnakeBodyContent.push_back('B');
 
 	mCellToClear = body2;
+
+	if (nullptr == mPlayer)
+	{
+		//mIsInitialized = false;
+	}
 }
 
 void SnakeItem::displayItem()
@@ -62,11 +66,17 @@ void SnakeItem::displayItem()
 
 void SnakeItem::display()
 {
+	if (true == mIsInitialized)
+	{
+
+	}
 }
 
 void SnakeItem::update(float timePassedInMsec)
 {
-	if (false == mIsGameOver)
+	if (true == mIsInitialized
+		&&
+		false == mIsGameOver)
 	{
 		// Check keyboard input
 		checkInput();			
@@ -131,7 +141,7 @@ void SnakeItem::checkInput()
 		case 'q':
 		case 'Q':
 			mAddBodyPart = true;
-			mMovementLeftToAdd = mSnakeBodyContent.size();
+			mMovementLeftToAdd = 1;
 			mNewBodyPartContent = 'A' + mSnakeBodyContent.size() - 1;
 			mIgnoreInput = true;
 			break;
@@ -225,6 +235,11 @@ bool SnakeItem::isGameOver(const COORD& coordToCheck)
 bool SnakeItem::isGameOver() const
 {
 	return mIsGameOver;
+}
+
+void SnakeItem::assignPlayer(std::shared_ptr<Player> player)
+{
+	mPlayer = player;
 }
 
 void SnakeItem::clearTail()

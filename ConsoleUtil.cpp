@@ -29,8 +29,12 @@ void setColor(Color colorBack, Color colorFore)
 	if (colorForeInt & 2) fore |= FOREGROUND_GREEN;
 	if (colorForeInt & 4) fore |= FOREGROUND_RED;
 	if (colorForeInt & 8) fore |= FOREGROUND_INTENSITY;
+	
+	// Get the Win32 handle representing standard output.
+	// This generally only has to be done once, so we make it static.
+	static const HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), back | fore);
+	SetConsoleTextAttribute(hOut, back | fore);
 }
 
 void clearConsole()
@@ -51,7 +55,8 @@ void clearConsole()
 	std::cout.flush();
 
 	// Figure out the current width and height of the console window
-	if (!GetConsoleScreenBufferInfo(hOut, &csbi)) {
+	if (!GetConsoleScreenBufferInfo(hOut, &csbi)) 
+	{
 		// TODO: Handle failure!
 		abort();
 	}
@@ -63,7 +68,7 @@ void clearConsole()
 	FillConsoleOutputCharacter(hOut, TEXT(' '), length, topLeft, &written);
 
 	// Reset the attributes of every character to the default.
-	// This clears all background colour formatting, if any.
+	// This clears all background color formatting, if any.
 	FillConsoleOutputAttribute(hOut, csbi.wAttributes, length, topLeft, &written);
 
 	// Move the cursor back to the top left for the next sequence of writes
@@ -72,7 +77,11 @@ void clearConsole()
 
 void moveCursor(const COORD& pos)
 {
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+	// Get the Win32 handle representing standard output.
+	// This generally only has to be done once, so we make it static.
+	static const HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	SetConsoleCursorPosition(hOut, pos);
 }
 
 void moveCursor(int x, int y)

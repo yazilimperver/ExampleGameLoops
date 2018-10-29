@@ -1,58 +1,24 @@
 /**
- * \file    ConsoleSnakeGame.h
- * \date    2018/10/22
+ * \file    Player.h
+ * \date    2018/10/29
  * \author  yazilimperver
  * \brief   
  * Copyright © 2018, Check Bottom For Copyright Notice <yazilimpervergs@gmail.com>
  */
-#ifndef CONSOLESNAKEGAME_H__
-#define CONSOLESNAKEGAME_H__
+#ifndef PLAYER_H__
+#define PLAYER_H__
 
-#include <ConsoleLevel.h>
-#include <SnakeGameScreen.h>
-#include <SnakeItem.h>
-#include <Player.h>
+#include <PlayerData.h>
 
-class LoopManager;
-
-class ConsoleSnakeGame
+class Player
 {
 public:
-	ConsoleSnakeGame(const LoopManager& loopManager);
-
-	void initialize();
-
-	void display();	
-
-	void displayWithLoopManagement(float tickTime);
-	void update(float tickTime);
-
-	bool switchToGameScreen(SnakeGameScreen newScreen);
-
-	void displayGameOver();
+	PlayerData& GetPlayerData();
 protected:
-	void displayLogo();
-	void displayGameLogo();
-	void prepareGameScreen();
-
-	/// Registered players
-	std::vector<std::shared_ptr<Player>> mRegisteredPlayers;
-
-	/// Current game screen
-	SnakeGameScreen mCurrentGameScreen = SnakeGameScreen::eGAME_SCREEN_INITIAL;
-
-	/// Snake game board
-	ConsoleLevel level;
-
-	/// Snake head
-	/// MovableItem snake;
-	SnakeItem snake;
-
-	/// Loopmanager that we associate our application
-	const LoopManager& mLoopManager;
+	PlayerData mPlayerData;
 };
 
-#endif // CONSOLESNAKEGAME_H__
+#endif // PLAYER_H__
 
 /*
   Copyright (c) [2018] [Yazilimperver <yazilimpervergs@gmail.com>]

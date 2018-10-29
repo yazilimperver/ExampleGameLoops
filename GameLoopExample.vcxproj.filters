@@ -44,6 +44,9 @@
     <ClCompile Include="SnakeItem.cpp">
       <Filter>SnakeFiles</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>SnakeFiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleCellData.h">
@@ -77,6 +80,12 @@
       <Filter>SnakeFiles</Filter>
     </ClInclude>
     <ClInclude Include="SnakeGameScreen.h">
+      <Filter>SnakeFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>SnakeFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerData.h">
       <Filter>SnakeFiles</Filter>
     </ClInclude>
   </ItemGroup>
